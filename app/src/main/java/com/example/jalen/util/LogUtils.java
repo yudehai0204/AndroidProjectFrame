@@ -1,4 +1,4 @@
-package com.example.jalen.mydemoforzhihu.com.example.jalen.utils;
+package com.example.jalen.util;
 
 import android.util.Log;
 

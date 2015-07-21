@@ -1,17 +1,31 @@
 package com.example.jalen.mydemoforzhihu;
 
+import android.net.Uri;
 import android.support.v7.app.ActionBarActivity;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
+
+import com.facebook.common.activitylistener.BaseActivityListener;
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.view.SimpleDraweeView;
 
 
 public class MainActivity extends ActionBarActivity {
 
+    private SimpleDraweeView img;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fresco.initialize(this);
         setContentView(R.layout.activity_main);
+        Uri uri = Uri.parse("https://raw.githubusercontent.com/liaohuqiu/fresco-docs-cn/docs/static/fresco-logo.png");
+        img = (SimpleDraweeView) findViewById(R.id.img);
+        img.setImageURI(uri);
+
+
     }
 
     @Override
