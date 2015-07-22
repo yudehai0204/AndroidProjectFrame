@@ -1,30 +1,68 @@
 package com.example.jalen.mydemoforzhihu;
 
-import android.net.Uri;
-import android.support.v7.app.ActionBarActivity;
+import android.app.Activity;
 import android.os.Bundle;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBarActivity;
+import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.ImageView;
+import android.widget.Toast;
 
-import com.facebook.common.activitylistener.BaseActivityListener;
-import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.view.SimpleDraweeView;
 
 
 public class MainActivity extends ActionBarActivity {
 
     private SimpleDraweeView img;
-
+    private Toolbar mToolbar;
+    private DrawerLayout mDrawerLayout;
+    private ActionBarDrawerToggle mDrawerToggle;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Fresco.initialize(this);
         setContentView(R.layout.activity_main);
-        Uri uri = Uri.parse("https://raw.githubusercontent.com/liaohuqiu/fresco-docs-cn/docs/static/fresco-logo.png");
-        img = (SimpleDraweeView) findViewById(R.id.img);
-        img.setImageURI(uri);
+        initViews();
 
+    }
+
+
+    /***
+     * only initialization views and toolbar
+     */
+    private void initViews() {
+        mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mToolbar.setTitle("For  Me");
+        setSupportActionBar(mToolbar);
+        //setting left-top is showing?
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+        mDrawerLayout = (DrawerLayout) findViewById(R.id.drawer);
+        mDrawerToggle = new ActionBarDrawerToggle(this, mDrawerLayout, mToolbar, R.string.drawer_open,
+                R.string.drawer_close);
+        mDrawerToggle.syncState();
+        mDrawerLayout.setDrawerListener(mDrawerToggle);
+//        Uri uri = Uri.parse("https://raw.githubusercontent.com/liaohuqiu/fresco-docs-cn/docs/static/fresco-logo.png");
+//        img = (SimpleDraweeView) findViewById(R.id.img);
+//        img.setImageURI(uri);
+
+        mToolbar.setOnMenuItemClickListener(new Toolbar.OnMenuItemClickListener() {
+            @Override
+            public boolean onMenuItemClick(MenuItem item) {
+                switch (item.getItemId()) {
+                    case R.id.action_settings:
+                        Toast.makeText(MainActivity.this, "action_settings", Toast.LENGTH_SHORT).show();
+                        break;
+                    case R.id.action_share:
+                        Toast.makeText(MainActivity.this, "action_share", Toast.LENGTH_SHORT).show();
+                        break;
+                    default:
+                        break;
+                }
+                return true;
+            }
+        });
 
     }
 

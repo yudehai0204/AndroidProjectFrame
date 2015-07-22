@@ -1,18 +1,53 @@
 <LinearLayout
     xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:fresco="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical"
    >
+<include
+    layout="@layout/mytoolbar"
+    ></include>
+    <android.support.v4.widget.DrawerLayout
+        android:id="@+id/drawer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" >
 
-    <TextView android:text="@string/hello_world"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
-    <com.facebook.drawee.view.SimpleDraweeView
-        android:id="@+id/img"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        <!-- 内容界面 -->
 
-        />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@mipmap/content"
+            android:orientation="vertical" >
+
+            <com.example.jalen.mydemoforzhihu.PagerSlidingTabStrip
+                android:id="@+id/tabs"
+                android:layout_width="match_parent"
+                android:layout_height="48dip" >
+            </com.example.jalen.mydemoforzhihu.PagerSlidingTabStrip>
+
+            <android.support.v4.view.ViewPager
+                android:id="@+id/pager"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" >
+            </android.support.v4.view.ViewPager>
+        </LinearLayout>
+
+        <!-- 侧滑菜单内容 -->
+
+        <LinearLayout
+            android:id="@+id/drawer_view"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="start"
+            android:background="@mipmap/drawer"
+            android:orientation="vertical"
+            android:padding="8dp" >
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent" />
+        </LinearLayout>
+    </android.support.v4.widget.DrawerLayout>
+
 </LinearLayout>
