@@ -1,21 +1,41 @@
 package com.example.jalen.mydemoforzhihu;
 
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
-import android.os.PersistableBundle;
-import android.support.v7.app.ActionBarActivity;
-
-import com.facebook.drawee.backends.pipeline.Fresco;
+import android.support.v7.app.AppCompatActivity;
+import android.view.View;
 
 /**
  * Created by Jalen on 2015/7/21.
  */
-public class BaseActivity extends ActionBarActivity{
+public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener{
+
+
+    public abstract void weightClick(View v);
 
 
     @Override
-    public void onCreate(Bundle savedInstanceState, PersistableBundle persistentState) {
-        super.onCreate(savedInstanceState, persistentState);
-        Fresco.initialize(this);
-
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        initViews();
+        initDates();
     }
+
+
+    @Override
+    public void onClick(View v) {
+        weightClick(v);
+    }
+
+    /***
+     * 初始化View
+     */
+    abstract  void initViews();
+
+    /***
+     * 操作事件
+     */
+    abstract  void initDates();
+
 }

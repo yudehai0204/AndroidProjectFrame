@@ -1,29 +1,52 @@
 package com.example.jalen.mydemoforzhihu;
 
-import android.app.Activity;
-import android.os.Bundle;
+import android.annotation.SuppressLint;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Color;
+import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.support.v4.widget.DrawerLayout;
-import android.support.v7.app.ActionBarActivity;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.support.v7.graphics.Palette;
 import android.support.v7.widget.Toolbar;
+import android.util.TypedValue;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.View;
+import android.view.Window;
 import android.widget.Toast;
 
-import com.facebook.drawee.view.SimpleDraweeView;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.example.jalen.adapter.MainViewPagerAdapter;
+import com.example.jalen.adapter.SuperAwesomeCardFragment;
+import com.example.jalen.common.ConstansZhihu;
+import com.example.jalen.fragment.main.MainHotCollectionFrag;
+import com.example.jalen.fragment.main.MainHotDayNoticeFrag;
+import com.example.jalen.fragment.main.MainHotNoticeFrag;
+import com.example.jalen.fragment.main.MainHotRecommendFrag;
+import com.example.jalen.util.LogUtils;
 
 
-public class MainActivity extends ActionBarActivity {
 
-    private SimpleDraweeView img;
+
+public class MainActivity extends BaseActivity {
+
+    private Fragment frags[];
     private Toolbar mToolbar;
     private DrawerLayout mDrawerLayout;
     private ActionBarDrawerToggle mDrawerToggle;
+    private PagerSlidingTabStrip mPagerSlidingTabStrip;
+    private ViewPager mViewPager;
+
+    /***
+     * 点击事件  onClick for weight
+     * @param v
+     */
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
-        initViews();
+    public void weightClick(View v) {
 
     }
 
@@ -31,8 +54,13 @@ public class MainActivity extends ActionBarActivity {
     /***
      * only initialization views and toolbar
      */
-    private void initViews() {
+    @Override
+     void initViews() {
+        setContentView(R.layout.activity_main);
+        initFrag();
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
+        mPagerSlidingTabStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);
+        mViewPager = (ViewPager) findViewById(R.id.pager);
         mToolbar.setTitle("For  Me");
         setSupportActionBar(mToolbar);
         //setting left-top is showing?
@@ -63,6 +91,78 @@ public class MainActivity extends ActionBarActivity {
                 return true;
             }
         });
+        mViewPager.setAdapter(new MainViewPagerAdapter(getSupportFragmentManager(),frags));
+        mPagerSlidingTabStrip.setViewPager(mViewPager);
+        initPageTab();
+    }
+
+
+    /***
+     * 初始化Fragment
+     */
+    private void initFrag() {
+        frags = new Fragment[4];
+        frags[0]= new MainHotRecommendFrag();
+        frags[1]= new MainHotCollectionFrag();
+        frags[2]= new MainHotNoticeFrag();
+        frags[3]= new MainHotDayNoticeFrag();
+
+    }
+
+
+    /***
+     * opreate tabstrip
+     */
+    private void initPageTab() {
+        mPagerSlidingTabStrip.setOnPageChangeListener(new ViewPager.OnPageChangeListener() {
+            @Override
+            public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
+
+            }
+            @Override
+            public void onPageSelected(int position) {
+            colorChange(position);
+            }
+
+            @Override
+            public void onPageScrollStateChanged(int state) {
+
+            }
+        });
+
+        // 底部游标颜色
+          mPagerSlidingTabStrip.setIndicatorColor(Color.BLUE);
+           // tab的分割线颜色
+           mPagerSlidingTabStrip.setDividerColor(Color.TRANSPARENT);
+          // tab背景
+           mPagerSlidingTabStrip.setBackgroundColor(Color.parseColor("#4876FF"));
+          // tab底线高度
+          mPagerSlidingTabStrip.setUnderlineHeight((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                  1, getResources().getDisplayMetrics()));
+          // 游标高度
+         mPagerSlidingTabStrip.setIndicatorHeight((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP,
+                 5, getResources().getDisplayMetrics()));
+          // 选中的文字颜色
+         mPagerSlidingTabStrip.setSelectedTextColor(Color.WHITE);
+          // 正常文字颜色
+          mPagerSlidingTabStrip.setTextColor(Color.BLACK);
+
+    }
+
+    @Override
+    void initDates() {
+        ConstansZhihu.getDate(this, "http://91baisong.com/banben.php", Request.Method.GET, null, new Response.Listener<String>() {
+            @Override
+            public void onResponse(String response) {
+                LogUtils.d(response);
+            }
+        }, new Response.ErrorListener() {
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                LogUtils.d(error.toString());
+            }
+        });
+
 
     }
 
@@ -86,5 +186,42 @@ public class MainActivity extends ActionBarActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    /**
+     */
+    @SuppressLint("NewApi")
+    private void colorChange(int position) {
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(),
+                SuperAwesomeCardFragment.getBackgroundBitmapPosition(position));
+        Palette.generateAsync(bitmap, new Palette.PaletteAsyncListener() {
+            /**
+             */
+            @Override
+            public void onGenerated(android.support.v7.graphics.Palette palette) {
+                Palette.Swatch vibrant = palette.getVibrantSwatch();
+                mPagerSlidingTabStrip.setBackgroundColor(vibrant.getRgb());
+                mPagerSlidingTabStrip.setTextColor(vibrant.getTitleTextColor());
+                mPagerSlidingTabStrip.setIndicatorColor(colorBurn(vibrant.getRgb()));
+
+                mToolbar.setBackgroundColor(vibrant.getRgb());
+                if (android.os.Build.VERSION.SDK_INT >= 21) {
+                    Window window = getWindow();
+                    window.setStatusBarColor(colorBurn(vibrant.getRgb()));
+                    window.setNavigationBarColor(colorBurn(vibrant.getRgb()));
+                }
+            }
+        });
+    }
+
+    private int colorBurn(int RGBValues) {
+        int alpha = RGBValues >> 24;
+        int red = RGBValues >> 16 & 0xFF;
+        int green = RGBValues >> 8 & 0xFF;
+        int blue = RGBValues & 0xFF;
+        red = (int) Math.floor(red * (1 - 0.1));
+        green = (int) Math.floor(green * (1 - 0.1));
+        blue = (int) Math.floor(blue * (1 - 0.1));
+        return Color.rgb(red, green, blue);
     }
 }

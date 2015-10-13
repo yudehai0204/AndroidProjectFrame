@@ -16,9 +16,14 @@
         app:actionProviderClass="android.support.v7.widget.ShareActionProvider"
         app:showAsAction="ifRoom"/>
     <item
-        android:id="@+id/action_settings"
-        android:orderInCategory="100"
-        android:title="action_settings"
+    android:id="@+id/action_settings"
+    android:orderInCategory="100"
+    android:title="action_settings"
+    app:showAsAction="never"/>
+    <item
+        android:id="@+id/action_select"
+        android:orderInCategory="110"
+        android:title="action_select"
         app:showAsAction="never"/>
 
 </menu>

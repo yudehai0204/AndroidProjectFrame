@@ -1,6 +1,6 @@
 <resources>
 
-    <style name="AppTheme" parent="@style/AppBaseTheme">
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
 
         <!-- 底部导航栏颜色 -->
         <item name="android:navigationBarColor">#4876FF</item>

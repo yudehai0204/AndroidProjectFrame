@@ -17,13 +17,13 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@mipmap/content"
             android:orientation="vertical" >
 
             <com.example.jalen.mydemoforzhihu.PagerSlidingTabStrip
                 android:id="@+id/tabs"
                 android:layout_width="match_parent"
-                android:layout_height="48dip" >
+                android:layout_height="48dip"
+                android:fillViewport="false">
             </com.example.jalen.mydemoforzhihu.PagerSlidingTabStrip>
 
             <android.support.v4.view.ViewPager

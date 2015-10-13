@@ -10,7 +10,7 @@ public class LogUtils {
     private  static boolean mShowLog = true;
 
 
-    private static void d(String msg){
+    public static void d(String msg){
         if(mShowLog){
             Log.d(TAG,"--->"+msg+getLineMethod());
         }
