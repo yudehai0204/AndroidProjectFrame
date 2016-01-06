@@ -3,17 +3,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     tools:context=".MainActivity" >
 
-    <item
-        android:id="@+id/ab_search"
-        android:orderInCategory="80"
-        android:title="action_search"
-        app:actionViewClass="android.support.v7.widget.SearchView"
-        app:showAsAction="ifRoom"/>
+    <!--<item-->
+        <!--android:id="@+id/ab_search"-->
+        <!--android:orderInCategory="80"-->
+        <!--android:title="action_search"-->
+        <!--app:actionViewClass="android.support.v7.widget.SearchView"-->
+        <!--app:showAsAction="ifRoom"/>-->
     <item
         android:id="@+id/action_share"
+
         android:orderInCategory="90"
         android:title="action_share"
-        app:actionProviderClass="android.support.v7.widget.ShareActionProvider"
+        android:icon="@android:drawable/ic_media_play"
         app:showAsAction="ifRoom"/>
     <item
     android:id="@+id/action_settings"

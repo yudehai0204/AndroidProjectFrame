@@ -24,7 +24,8 @@ dependencies {
     compile 'com.android.support:appcompat-v7:22.2.1'
     compile 'com.facebook.fresco:fresco:0.5.0+'
     compile 'com.android.support:recyclerview-v7:22.2.1'
-    compile project(':volley')
     compile 'com.alibaba:fastjson:1.2.6'
     compile 'com.android.support:palette-v7:22.2.1'
+    compile 'eu.the4thfloor.volley:com.android.volley:2015.05.28'
+    compile 'com.github.liuguangqiang.swipeback:library:1.0.2'
 }

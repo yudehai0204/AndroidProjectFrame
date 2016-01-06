@@ -28,8 +28,7 @@ import com.example.jalen.fragment.main.MainHotDayNoticeFrag;
 import com.example.jalen.fragment.main.MainHotNoticeFrag;
 import com.example.jalen.fragment.main.MainHotRecommendFrag;
 import com.example.jalen.util.LogUtils;
-
-
+import com.example.jalen.util.SteepColorUtils;
 
 
 public class MainActivity extends BaseActivity {
@@ -57,11 +56,14 @@ public class MainActivity extends BaseActivity {
     @Override
      void initViews() {
         setContentView(R.layout.activity_main);
+        //改变沉浸栏的颜色
+        SteepColorUtils.setStatusBarContext(this);
         initFrag();
         mToolbar = (Toolbar) findViewById(R.id.toolbar);
         mPagerSlidingTabStrip = (PagerSlidingTabStrip) findViewById(R.id.tabs);
         mViewPager = (ViewPager) findViewById(R.id.pager);
-        mToolbar.setTitle("For  Me");
+        mToolbar.setTitle("首页");
+        mToolbar.setTitleTextColor(Color.parseColor("#ffffff"));
         setSupportActionBar(mToolbar);
         //setting left-top is showing?
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -203,7 +205,7 @@ public class MainActivity extends BaseActivity {
                 mPagerSlidingTabStrip.setBackgroundColor(vibrant.getRgb());
                 mPagerSlidingTabStrip.setTextColor(vibrant.getTitleTextColor());
                 mPagerSlidingTabStrip.setIndicatorColor(colorBurn(vibrant.getRgb()));
-
+//            SteepColorUtils.compat(MainActivity.this,colorBurn(vibrant.getRgb()));
                 mToolbar.setBackgroundColor(vibrant.getRgb());
                 if (android.os.Build.VERSION.SDK_INT >= 21) {
                     Window window = getWindow();

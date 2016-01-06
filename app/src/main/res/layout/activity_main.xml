@@ -4,9 +4,7 @@
     android:layout_height="match_parent"
     android:orientation="vertical"
    >
-<include
-    layout="@layout/mytoolbar"
-    ></include>
+
     <android.support.v4.widget.DrawerLayout
         android:id="@+id/drawer"
         android:layout_width="match_parent"
@@ -18,7 +16,9 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical" >
-
+            <include
+                layout="@layout/mytoolbar"
+                ></include>
             <com.example.jalen.mydemoforzhihu.PagerSlidingTabStrip
                 android:id="@+id/tabs"
                 android:layout_width="match_parent"
@@ -41,6 +41,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="start"
             android:background="@mipmap/drawer"
+            android:fitsSystemWindows="true"
             android:orientation="vertical"
             android:padding="8dp" >
 

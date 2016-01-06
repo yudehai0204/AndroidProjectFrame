@@ -20,6 +20,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.example.jalen.activity.ClassifyActivity"
+
+            android:theme="@style/Theme.Swipe.Back"
+            ></activity>
     </application>
 
 </manifest>

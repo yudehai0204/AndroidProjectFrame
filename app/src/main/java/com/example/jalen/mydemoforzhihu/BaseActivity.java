@@ -14,6 +14,8 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     public abstract void weightClick(View v);
 
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

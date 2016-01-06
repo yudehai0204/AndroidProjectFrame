@@ -1,5 +1,6 @@
 package com.example.jalen.fragment.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
@@ -8,15 +9,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AbsListView;
+import android.widget.AdapterView;
 import android.widget.BaseAdapter;
 import android.widget.ListView;
 
+import com.example.jalen.activity.ClassifyActivity;
 import com.example.jalen.mydemoforzhihu.R;
 
 /**
  * Created by Jalen on 2015/8/5.
  */
-public class MainHotRecommendFrag extends Fragment {
+public class MainHotRecommendFrag extends Fragment implements AdapterView.OnItemClickListener {
 
     private ListView mListview;
     private static View view ;
@@ -33,6 +36,7 @@ public class MainHotRecommendFrag extends Fragment {
 
     private void initDatas() {
         mListview.setAdapter(new Myadapter());
+        mListview.setOnItemClickListener(this);
         mListview.setOnScrollListener(new AbsListView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(AbsListView view, int scrollState) {
@@ -68,6 +72,12 @@ public class MainHotRecommendFrag extends Fragment {
         mSwip = (SwipeRefreshLayout) view.findViewById(R.id.swiperefresh);
         mListview = (ListView) view.findViewById(R.id.listview);
 
+    }
+
+    @Override
+    public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        Intent intent = new Intent(getActivity(), ClassifyActivity.class);
+        startActivity(intent);
     }
 
     private class Myadapter extends BaseAdapter{
