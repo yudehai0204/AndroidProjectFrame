@@ -1,9 +1,0 @@
-<resources>
-
-    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
-        <item name="android:windowTranslucentStatus">true</item>
-        <!-- 底部导航栏颜色 -->
-        <item name="android:navigationBarColor">#4876FF</item>
-    </style>
-
-</resources>
