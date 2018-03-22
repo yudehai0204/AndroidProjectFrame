@@ -1,0 +1,23 @@
+
+ext{
+
+    dependVersion = [
+            rxJava          : "2.1.11",
+            rxAndroid       : "2.0.1",
+            retrofit        :  "2.4.0"
+    ]
+
+    rxJava = [
+            rxJava          : "io.reactivex.rxjava2:rxjava:$dependVersion.rxJava",
+            rxAndroid       : "io.reactivex.rxjava2:rxandroid:$dependVersion.rxAndroid"
+    ]
+    retrofit=[
+            retrofit        : "com.squareup.retrofit2:retrofit:$dependVersion.retrofit",
+            retrofit_gson   : "com.squareup.retrofit2:converter-gson:$dependVersion.retrofit",
+            retrofit_rxjava : "com.squareup.retrofit2:adapter-rxjava2:$dependVersion.retrofit",
+            retrofit_log    : "com.squareup.okhttp3:logging-interceptor:3.4.1"
+    ]
+
+    rxJavaLibs = rxJava.values()
+    retrofitLibs = retrofit.values()
+}
