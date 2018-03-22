@@ -28,8 +28,8 @@ public class ShowApiAdapter extends RecyclerView.Adapter<ShowApiAdapter.ViewHold
     private int [] colors= new int[]{Color.parseColor("#DA70D6"),Color.parseColor("#4B0082"),
             Color.parseColor("#483D8B"),Color.parseColor("#191970"),
             Color.parseColor("#90EE90"),Color.parseColor("#FAFAD2"),
-            Color.parseColor("#FFF8DC"),Color.parseColor("#FFEFD5"),
-            Color.parseColor("#FFFAFA"),Color.parseColor("#B22222")};
+            Color.parseColor("#F1F8DC"),Color.parseColor("#FFEFD5"),
+            Color.parseColor("#F2F1FA"),Color.parseColor("#B22222")};
 
     public ShowApiAdapter(Context mContext) {
         this.mContext = mContext;
@@ -51,10 +51,10 @@ public class ShowApiAdapter extends RecyclerView.Adapter<ShowApiAdapter.ViewHold
         int tv_title_color_index =colors[(int) (Math.random()*10)];
         int tv_content_color_index =colors[(int) (Math.random()*10)];
         if(tv_title_color_index==card_color_index){
-            tv_title_color_index = card_color_index==9?card_color_index-1:card_color_index+1;
+            tv_title_color_index = card_color_index>8?card_color_index-2:card_color_index+2;
         }
         if(tv_content_color_index==card_color_index){
-            tv_content_color_index = card_color_index==9?card_color_index-1:card_color_index+1;
+            tv_content_color_index = card_color_index>8?card_color_index-2:card_color_index+2;
         }
         holder.mCardView.setCardBackgroundColor(card_color_index);
         holder.tv_title.setTextColor(tv_title_color_index);
