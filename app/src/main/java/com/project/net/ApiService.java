@@ -1,5 +1,6 @@
 package com.project.net;
 
+import com.project.mvp.model.ShowApiGifModel;
 import com.project.mvp.model.ShowApiModel;
 
 import java.util.Map;
@@ -24,6 +25,8 @@ public interface ApiService {
 
     @GET("341-1")
     Observable<ShowApiModel.Bean> getShowApiData(@Query("page")int page, @Query("maxResult")int maxResult);
+    @GET("341-3")
+    Observable<ShowApiGifModel.Bean> getShowApiGifData(@Query("page")int page, @Query("maxResult")int maxResult);//Gif
 
     @GET("Model/Fun")
     Observable<String> getApi(@Query("id")String id);//示例

@@ -1,5 +1,6 @@
 package com.project.net;
 
+import com.orhanobut.logger.Logger;
 import com.project.Constants;
 import com.project.base.BaseApplication;
 
@@ -43,7 +44,12 @@ public class RetrofitManager {
             synchronized (RetrofitManager.class)
             {
                 if(retrofit==null){
-                    HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor();
+                    HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
+                        @Override
+                        public void log(String message) {
+                            Logger.d(message);
+                        }
+                    });
                     if(Constants.APP_DEBUG)
                         interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);//设置Log日志
                     else

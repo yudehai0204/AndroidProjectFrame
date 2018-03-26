@@ -4,7 +4,11 @@ ext{
     dependVersion = [
             rxJava          : "2.1.11",
             rxAndroid       : "2.0.1",
-            retrofit        :  "2.4.0"
+            retrofit        :  "2.4.0",
+            glide           : "4.6.1"
+    ]
+    supportLib=[
+
     ]
 
     rxJava = [
@@ -17,7 +21,14 @@ ext{
             retrofit_rxjava : "com.squareup.retrofit2:adapter-rxjava2:$dependVersion.retrofit",
             retrofit_log    : "com.squareup.okhttp3:logging-interceptor:3.4.1"
     ]
+    glide=[
+            glide           :"com.github.bumptech.glide:glide:$dependVersion.glide",
+            glide_ok        :"com.github.bumptech.glide:okhttp3-integration:$dependVersion.glide",
+    ]
+    glideCompiler ="com.github.bumptech.glide:compiler:$dependVersion.glide"//没什么必要  只写上不引用
 
     rxJavaLibs = rxJava.values()
     retrofitLibs = retrofit.values()
+    glideLibs = glide.values()
+
 }

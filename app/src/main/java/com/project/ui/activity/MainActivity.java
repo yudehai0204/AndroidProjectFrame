@@ -1,35 +1,27 @@
 package com.project.ui.activity;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
-import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.view.ViewGroup;
 
 import com.project.R;
 import com.project.base.BaseActivity;
-import com.project.mvp.contract.ShowApiContract;
-import com.project.mvp.model.ShowApiModel;
-import com.project.mvp.presenter.ShowApiPresenter;
-import com.project.ui.adapter.ShowApiAdapter;
-import com.scwang.smartrefresh.layout.api.RefreshLayout;
-import com.scwang.smartrefresh.layout.listener.OnLoadMoreListener;
-import com.scwang.smartrefresh.layout.listener.OnRefreshListener;
+import com.project.ui.fragment.ShowApiGifFragment;
+import com.project.ui.fragment.ShowApiTextFragment;
 
-import java.util.ArrayList;
-import java.util.List;
+public class MainActivity extends BaseActivity {
 
-public class MainActivity extends BaseActivity implements ShowApiContract.IView{
-    private RecyclerView mRecyclerView;
-    private RefreshLayout mRefreshLayout;
-    private int page;
-    private ShowApiContract.IPresenter mPresenter;
-    private ShowApiAdapter mAdapter;
-    private List<ShowApiModel.Bean.Body.Content> mList;
+    private TabLayout mTabLayout;
+    private ViewPager mViewPager;
+    private Fragment frags[];
     @Override
     protected void initParam(Bundle param) {
-        mPresenter = new ShowApiPresenter();
-        mPresenter.attachView(this);
+
     }
 
     @Override
@@ -39,74 +31,70 @@ public class MainActivity extends BaseActivity implements ShowApiContract.IView{
 
     @Override
     protected void initView() {
-        mRecyclerView = findViewById(R.id.mRecyclerView);
-        mRefreshLayout =findViewById(R.id.smartRefresh);
-        page=1;
-        mAdapter= new ShowApiAdapter(this);
-        mList= new ArrayList<>();
+        mTabLayout = findViewById(R.id.mTabLayout);
+        mViewPager = findViewById(R.id.mViewPager);
+        frags = new Fragment[2];
+        frags[0] = new ShowApiTextFragment();
+        frags[1] = new ShowApiGifFragment();
+
     }
 
     @Override
     protected void initData() {
-        mRecyclerView.setLayoutManager(new LinearLayoutManager(this));
-        mRecyclerView.setAdapter(mAdapter);
-        mRefreshLayout.autoRefresh(1000,1,1);
+        mViewPager.setAdapter(new MyViewPagerAdapter(getSupportFragmentManager()));
+        mTabLayout.addTab(mTabLayout.newTab());
+        mTabLayout.addTab(mTabLayout.newTab());
+        mTabLayout.setupWithViewPager(mViewPager);
+        mTabLayout.getTabAt(0).setText("文字");
+        mTabLayout.getTabAt(1).setText("笑话");
 
     }
 
     @Override
     protected void initListener() {
-        mRefreshLayout.setOnRefreshListener(new OnRefreshListener() {
-            @Override
-            public void onRefresh(@NonNull RefreshLayout refreshLayout) {
-                page=1;
-                mPresenter.getShowApiData(page,30);
-            }
-        });
-        mRefreshLayout.setOnLoadMoreListener(new OnLoadMoreListener() {
-            @Override
-            public void onLoadMore(@NonNull RefreshLayout refreshLayout) {
-                page++;
-                mPresenter.getShowApiData(page,30);
-            }
-        });
+
     }
+
 
     @Override
     public void onClick(View view) {
 
     }
 
-    @Override
-    public void initShowApiData(ShowApiModel.Bean bean) {
-        endRefresh();
-        if(bean.getShowapi_res_body()!=null&&bean.getShowapi_res_body().getContentlist()!=null){
-            if (page == 1) {
-                mList.clear();
-            }
-            mList.addAll(bean.getShowapi_res_body().getContentlist());
-            mAdapter.setList(mList);
-            mAdapter.notifyDataSetChanged();
-        }
-    }
+
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        mPresenter.detachView();
     }
 
-    @Override
-    public void showError(Throwable t) {
-        endRefresh();
-        page--;
-    }
 
-    private void endRefresh(){
-        if(page==1){
-            mRefreshLayout.finishRefresh();
-        }else {
-            mRefreshLayout.finishLoadMore();
+    private class MyViewPagerAdapter extends FragmentPagerAdapter{
+
+        public MyViewPagerAdapter(FragmentManager fm) {
+            super(fm);
+        }
+
+        @Override
+        public Fragment getItem(int position) {
+            return frags[position];
+        }
+
+        @Override
+        public Object instantiateItem(ViewGroup container, int position) {
+            return super.instantiateItem(container, position);
+        }
+
+        @Override
+        public void destroyItem(ViewGroup container, int position, Object object) {
+            super.destroyItem(container, position, object);
+        }
+
+        @Override
+        public int getCount() {
+            return frags.length;
         }
     }
+
+
 }

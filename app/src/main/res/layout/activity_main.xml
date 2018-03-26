@@ -4,15 +4,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context="com.project.ui.activity.MainActivity">
-
-    <com.scwang.smartrefresh.layout.SmartRefreshLayout
-        android:id="@+id/smartRefresh"
+    <android.support.design.widget.TabLayout
+        android:id="@+id/mTabLayout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"></android.support.design.widget.TabLayout>
+    <android.support.v4.view.ViewPager
+        android:id="@+id/mViewPager"
+        android:layout_below="@+id/mTabLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/mRecyclerView"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
-    </com.scwang.smartrefresh.layout.SmartRefreshLayout>
+
+    </android.support.v4.view.ViewPager>
+
+
 
 </RelativeLayout>
