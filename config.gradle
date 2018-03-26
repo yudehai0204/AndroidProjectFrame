@@ -5,10 +5,15 @@ ext{
             rxJava          : "2.1.11",
             rxAndroid       : "2.0.1",
             retrofit        :  "2.4.0",
-            glide           : "4.6.1"
+            glide           : "4.6.1",
+            support_version : "27.0.2"
     ]
     supportLib=[
-
+            v7              : "com.android.support:appcompat-v7:$dependVersion.support_version",
+            design          : "com.android.support:design:$dependVersion.support_version",
+            recyclerview    : "com.android.support:recyclerview-v7:$dependVersion.support_version",
+            cardview        : "com.android.support:cardview-v7:$dependVersion.support_version",
+            annotations     : "com.android.support:support-annotations:$dependVersion.support_version"
     ]
 
     rxJava = [
@@ -30,5 +35,5 @@ ext{
     rxJavaLibs = rxJava.values()
     retrofitLibs = retrofit.values()
     glideLibs = glide.values()
-
+    supportLibs = supportLib.values()
 }

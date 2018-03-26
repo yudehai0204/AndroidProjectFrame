@@ -46,7 +46,7 @@ public class MainActivity extends BaseActivity {
         mTabLayout.addTab(mTabLayout.newTab());
         mTabLayout.setupWithViewPager(mViewPager);
         mTabLayout.getTabAt(0).setText("文字");
-        mTabLayout.getTabAt(1).setText("笑话");
+        mTabLayout.getTabAt(1).setText("GIF");
 
     }
 
