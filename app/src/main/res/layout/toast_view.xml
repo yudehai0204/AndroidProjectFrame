@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<TextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingTop="@dimen/dp_10"
+    android:paddingBottom="@dimen/dp_10"
+    android:paddingLeft="@dimen/dp_30"
+    android:paddingRight="@dimen/dp_30"
+    android:minWidth="@dimen/dp_150"
+    android:textColor="@android:color/white"
+    android:textSize="@dimen/sp_13"
+    android:gravity="center"
+    android:text="Null"
+    android:background="@drawable/shape_toast_bg"
+    >
+
+</TextView>

@@ -56,7 +56,7 @@ public class RetrofitManager {
                         interceptor.setLevel(HttpLoggingInterceptor.Level.NONE);//
 
                     //缓存设置
-                    File cacheFile = new File(BaseApplication.context.getCacheDir(),"cache");
+                    File cacheFile = new File(BaseApplication.applicationContext.getCacheDir(),"cache");
                     Cache cache = new Cache(cacheFile,50*1024*1024);//50M
 
                     //设置Client

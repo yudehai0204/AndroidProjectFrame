@@ -48,14 +48,14 @@ public class BaseApplication extends Application implements Application.Activity
         });
     }
 
-    public static Context context;
+    public static Context applicationContext;
     private static RefWatcher refWatcher;
 
     @Override
     public void onCreate() {
         super.onCreate();
         registerActivityLifecycleCallbacks(this);
-        context = getApplicationContext();
+        applicationContext = getApplicationContext();
         refWatcher = setUpLeakCanary();
         initLogger();
     }

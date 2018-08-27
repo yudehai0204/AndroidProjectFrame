@@ -1,6 +1,7 @@
 package com.project.ui.activity;
 
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -13,6 +14,7 @@ import com.project.R;
 import com.project.base.BaseActivity;
 import com.project.ui.fragment.ShowApiGifFragment;
 import com.project.ui.fragment.ShowApiTextFragment;
+import com.project.utils.ToastManager;
 
 public class MainActivity extends BaseActivity {
 
@@ -47,7 +49,13 @@ public class MainActivity extends BaseActivity {
         mTabLayout.setupWithViewPager(mViewPager);
         mTabLayout.getTabAt(0).setText("文字");
         mTabLayout.getTabAt(1).setText("GIF");
-
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                ToastManager.shotToast("Text");
+                ToastManager.showSnack((View) mViewPager.getParent(),"teee");
+            }
+        },3000);
     }
 
     @Override
