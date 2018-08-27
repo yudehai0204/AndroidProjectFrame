@@ -1,8 +1,48 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="@dimen/dp_45"
     >
-
+    <ImageView
+        android:id="@+id/img_left"
+        android:layout_width="@dimen/dp_45"
+        android:layout_height="@dimen/dp_45"
+        android:padding="@dimen/dp_10"
+        android:background="@drawable/ripple_bg"
+        />
+    <TextView
+        android:id="@+id/tv_left"
+        android:layout_width="wrap_content"
+        android:paddingLeft="@dimen/dp_15"
+        android:paddingRight="@dimen/dp_15"
+        android:visibility="gone"
+        android:textSize="@dimen/sp_14"
+        android:background="@drawable/ripple_bg"
+        android:layout_height="@dimen/dp_45" />
+    <TextView
+        android:id="@+id/tv_title"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textSize="@dimen/sp_14"
+        />
+    <ImageView
+        android:id="@+id/img_right"
+        android:layout_width="@dimen/dp_45"
+        android:layout_height="@dimen/dp_45"
+        android:padding="@dimen/dp_10"
+        android:visibility="gone"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/ripple_bg"
+        />
+    <TextView
+        android:id="@+id/tv_right"
+        android:layout_width="wrap_content"
+        android:paddingLeft="@dimen/dp_15"
+        android:paddingRight="@dimen/dp_15"
+        android:textSize="@dimen/sp_14"
+        android:visibility="gone"
+        android:layout_alignParentRight="true"
+        android:background="@drawable/ripple_bg"
+        android:layout_height="@dimen/dp_45" />
 </RelativeLayout>
