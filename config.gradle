@@ -1,5 +1,13 @@
 
 ext{
+    Version = [
+            minSdkVersion       : 17,
+            compileSdkVersion   :27,
+            targetSdkVersion    :24,
+            versionCode         :1,
+            versionName         :"1.0.0",
+            buildToolsVersion   :"27.0.2",
+    ]
 
     dependVersion = [
             rxJava          : "2.1.11",

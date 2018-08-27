@@ -1,13 +1,13 @@
 apply plugin: 'com.android.application'
 
 android {
-    compileSdkVersion 27
+    compileSdkVersion rootProject.ext.Version.compileSdkVersion
     defaultConfig {
         applicationId "com.project"
-        minSdkVersion 17
-        targetSdkVersion 24
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion rootProject.ext.Version.minSdkVersion
+        targetSdkVersion rootProject.ext.Version.targetSdkVersion
+        versionCode rootProject.ext.Version.versionCode
+        versionName rootProject.ext.Version.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
     buildTypes {
@@ -16,7 +16,7 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
         }
     }
-    buildToolsVersion '26.0.2'
+    buildToolsVersion rootProject.ext.Version.buildToolsVersion
 }
 
 dependencies {
@@ -32,7 +32,7 @@ dependencies {
     //Glide
     implementation rootProject.ext.glideLibs
     //SmartRefresh
-    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-1'
+    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-14'
     //Leakcanary
     debugCompile 'com.squareup.leakcanary:leakcanary-android:1.3'
     releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.3'
