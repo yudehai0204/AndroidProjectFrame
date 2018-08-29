@@ -3,11 +3,16 @@ package com.project.base;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v7.app.AppCompatActivity;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+
+import com.afollestad.materialdialogs.MaterialDialog;
+import com.trello.rxlifecycle2.components.support.RxAppCompatActivity;
+
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
 
 /**
  * Created by 于德海 on 2018/3/22.
@@ -17,16 +22,40 @@ import android.widget.EditText;
  * @describe
  */
 
-public abstract class BaseActivity extends AppCompatActivity implements View.OnClickListener{
-
+public abstract class BaseActivity extends RxAppCompatActivity implements View.OnClickListener{
+    private Unbinder unbinder;
+    private MaterialDialog progress_Dialog;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initParam(getIntent().getExtras());
         setContentView(getLayoutId());
+        unbinder = ButterKnife.bind(this);
         initView();
         initData();
         initListener();
+    }
+
+    protected void showLoading(){
+        if(progress_Dialog==null){
+            progress_Dialog = new MaterialDialog.Builder(this)
+                    .content("Loading")
+                    .progress(true,100,false)
+                    .build();
+        }
+        progress_Dialog.show();
+    }
+
+    protected void dismissLoading(){
+        if(progress_Dialog!=null){
+            progress_Dialog.dismiss();
+        }
+    }
+
+    @Override
+    protected void onStop() {
+        super.onStop();
+        dismissLoading();
     }
 
     protected abstract void initParam(Bundle param);
@@ -39,6 +68,12 @@ public abstract class BaseActivity extends AppCompatActivity implements View.OnC
     protected void onDestroy() {
         super.onDestroy();
         BaseApplication.getRefWatcher().watch(this);
+        if(progress_Dialog!=null){
+            progress_Dialog =null;
+        }
+        if(unbinder!=null){
+            unbinder.unbind();
+        }
     }
 
     @Override

@@ -1,11 +1,12 @@
 package com.project.mvp.model;
 
-import com.project.net.IoToMainTransformer;
 import com.project.net.RetrofitManager;
 
 import java.util.List;
 
 import io.reactivex.Observable;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * Created by 于德海 on 2018/3/22.
@@ -74,6 +75,7 @@ public class ShowApiGifModel {
     public Observable<ShowApiGifModel.Bean> getShowApiGifData(int page, int max_Results){
         return RetrofitManager.getApiService()
                 .getShowApiGifData(page,max_Results)
-                .compose(new IoToMainTransformer());
+                .subscribeOn(Schedulers.io())
+                .observeOn(AndroidSchedulers.mainThread());
     }
 }

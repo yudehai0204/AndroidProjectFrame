@@ -8,6 +8,7 @@ android {
         versionCode rootProject.ext.Version.versionCode
         versionName rootProject.ext.Version.versionName
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+        javaCompileOptions { annotationProcessorOptions { includeCompileClasspath = true } }
     }
     buildTypes {
         release {
@@ -28,8 +29,11 @@ dependencies {
     implementation rootProject.ext.rxJavaLibs
     //Retrofit
     implementation rootProject.ext.retrofitLibs
+    //ButterKnife
+    implementation rootProject.ext.butterknifeLibs
     //Glide
     implementation rootProject.ext.glideLibs
+    annotationProcessor rootProject.ext.glideCompiler
     //SmartRefresh
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-14'
     //Leakcanary
@@ -41,7 +45,6 @@ dependencies {
     implementation 'com.afollestad.material-dialogs:core:0.9.6.0', {
         exclude  group: 'com.android.support'
     }
-
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.1'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'

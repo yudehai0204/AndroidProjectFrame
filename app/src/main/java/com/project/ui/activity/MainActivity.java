@@ -1,7 +1,6 @@
 package com.project.ui.activity;
 
 import android.os.Bundle;
-import android.support.annotation.NonNull;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -10,12 +9,20 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.afollestad.materialdialogs.MaterialDialog;
+import com.blankj.utilcode.util.LogUtils;
 import com.project.R;
 import com.project.base.BaseActivity;
 import com.project.ui.fragment.ShowApiGifFragment;
 import com.project.ui.fragment.ShowApiTextFragment;
-import com.project.utils.ToastManager;
+
+import io.reactivex.Observable;
+import io.reactivex.ObservableEmitter;
+import io.reactivex.ObservableOnSubscribe;
+import io.reactivex.Observer;
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.disposables.Disposable;
+import io.reactivex.schedulers.Schedulers;
+
 
 public class MainActivity extends BaseActivity {
 
@@ -50,36 +57,58 @@ public class MainActivity extends BaseActivity {
         mTabLayout.setupWithViewPager(mViewPager);
         mTabLayout.getTabAt(0).setText("文字");
         mTabLayout.getTabAt(1).setText("GIF");
+        mTabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+            }
 
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
+        Observable observable = Observable.create(new ObservableOnSubscribe<String>() {//被观察这
+            @Override
+            public void subscribe(ObservableEmitter<String> emitter) throws Exception {
+                emitter.onNext("emitter");
+                emitter.onNext("emitter2");
+                emitter.onNext("emitter22");
+                emitter.onComplete();
+            }
+        });
+        Observer<String> reader = new Observer<String>() {
+            @Override
+            public void onSubscribe(Disposable d) {
+                LogUtils.e("text","subscribe");
+            }
+
+            @Override
+            public void onNext(String s) {
+                LogUtils.eTag("text",s);
+            }
+
+            @Override
+            public void onError(Throwable e) {
+
+            }
+
+            @Override
+            public void onComplete() {
+                LogUtils.eTag("text","Success");
+            }
+        };
+        observable.observeOn(AndroidSchedulers.mainThread())
+        .subscribeOn(Schedulers.io())
+        .subscribe(reader);
     }
-
     @Override
     protected void initListener() {
-        new MaterialDialog.Builder(this)
-                .title("TEXT")
-                .input("pleas", "", new MaterialDialog.InputCallback() {
-                    @Override
-                    public void onInput(@NonNull MaterialDialog dialog, CharSequence input) {
-
-                    }
-                })
-                .positiveText("TETS")
-                .negativeText("tet")
-                .autoDismiss(false)
-                .callback(new MaterialDialog.ButtonCallback() {
-                    @Override
-                    public void onPositive(MaterialDialog dialog) {
-                        super.onPositive(dialog);
-                        ToastManager.showSnack((View) mViewPager.getParent(),"what?");
-                    }
-
-                    @Override
-                    public void onNegative(MaterialDialog dialog) {
-                        super.onNegative(dialog);
-                        ToastManager.shotToast("tetet");
-                    }
-                })
-                .show();
+       showLoading();
     }
 
 
