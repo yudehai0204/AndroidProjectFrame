@@ -7,13 +7,16 @@ ext{
             versionCode         :1,
             versionName         :"1.0.0",
             buildToolsVersion   :"27.0.2",
+
     ]
 
     dependVersion = [
             rxJava          : "2.1.11",
+            rxLife          : "2.2.0",
             rxAndroid       : "2.0.1",
-            retrofit        :  "2.4.0",
+            retrofit        : "2.4.0",
             glide           : "4.6.1",
+            butterknife     : "8.8.1",
             support_version : "27.0.2"
     ]
     supportLib=[
@@ -26,7 +29,14 @@ ext{
 
     rxJava = [
             rxJava          : "io.reactivex.rxjava2:rxjava:$dependVersion.rxJava",
-            rxAndroid       : "io.reactivex.rxjava2:rxandroid:$dependVersion.rxAndroid"
+            rxAndroid       : "io.reactivex.rxjava2:rxandroid:$dependVersion.rxAndroid",
+            rxLife          : "com.trello.rxlifecycle2:rxlifecycle:$dependVersion.rxLife",
+            rxLife_common   : "com.trello.rxlifecycle2:rxlifecycle-components:$dependVersion.rxLife"
+    ]
+
+    butterknife = [
+            butterknife     : "com.jakewharton:butterknife:$dependVersion.butterknife",
+            butterknife_compiler   : "com.jakewharton:butterknife-compiler:$dependVersion.butterknife",
     ]
     retrofit=[
             retrofit        : "com.squareup.retrofit2:retrofit:$dependVersion.retrofit",
@@ -38,8 +48,9 @@ ext{
             glide           :"com.github.bumptech.glide:glide:$dependVersion.glide",
             glide_ok        :"com.github.bumptech.glide:okhttp3-integration:$dependVersion.glide",
     ]
-    glideCompiler ="com.github.bumptech.glide:compiler:$dependVersion.glide"//没什么必要  只写上不引用
+    glideCompiler ="com.github.bumptech.glide:compiler:$dependVersion.glide"
 
+    butterknifeLibs = butterknife.values()
     rxJavaLibs = rxJava.values()
     retrofitLibs = retrofit.values()
     glideLibs = glide.values()
