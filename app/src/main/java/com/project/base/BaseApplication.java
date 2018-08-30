@@ -9,7 +9,6 @@ import com.blankj.utilcode.util.Utils;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
-import com.project.Constants;
 import com.project.R;
 import com.project.app.AppManager;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;

@@ -1,22 +1,14 @@
 package com.project.app;
 
-import com.project.base.BaseApplication;
-
-import java.io.File;
-
 /**
- * @author xuhao
+ * @author
  * @date 2018/6/10 16:18
  * @desc app 常量
  */
-public class AppConstants {
+public final class AppConstants {
+    public static final String CACHE_DIR_NAME="Project_Frame";
+    public static final String SP_FILE_NAME ="project_sp";
+    public static final boolean APP_DEBUG= true;//debug是否开启
 
-    /**
-     * Path
-     */
-    public static final String PATH_DATA =BaseApplication.applicationContext.getCacheDir().getAbsolutePath() + File.separator + "data";
 
-    public static final String PATH_CACHE = PATH_DATA + "/NetCache";
-
-    static final String BUGLY_ID = "16e54f8921";
 }

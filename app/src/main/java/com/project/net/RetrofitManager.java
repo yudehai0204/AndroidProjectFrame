@@ -2,7 +2,7 @@ package com.project.net;
 
 import android.util.Log;
 
-import com.project.Constants;
+import com.project.app.AppConstants;
 import com.project.base.BaseApplication;
 
 import java.io.File;
@@ -66,7 +66,7 @@ public class RetrofitManager {
                 Log.e("AndroidFrame",message);
             }
         });
-        if (Constants.APP_DEBUG)
+        if (AppConstants.APP_DEBUG)
             interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);//设置Log日志
         else
             interceptor.setLevel(HttpLoggingInterceptor.Level.NONE);//

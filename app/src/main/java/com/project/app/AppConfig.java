@@ -1,7 +1,7 @@
 package com.project.app;
 
 /**
- * @author xuhao
+ * @author
  * @date 2018/6/11 17:34
  * @desc APP 的配置参数
  */
