@@ -11,6 +11,7 @@ import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
 import com.project.Constants;
 import com.project.R;
+import com.project.app.AppManager;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
@@ -60,10 +61,47 @@ public class BaseApplication extends Application implements Application.Activity
         applicationContext = getApplicationContext();
         refWatcher = setUpLeakCanary();
         initLogger();
+        registerActivityLifecycleCallbacks(callbacks);
     }
 
 
 
+    private ActivityLifecycleCallbacks callbacks = new ActivityLifecycleCallbacks() {
+        @Override
+        public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
+            AppManager.getInstance().addActivity(activity);
+        }
+
+        @Override
+        public void onActivityStarted(Activity activity) {
+
+        }
+
+        @Override
+        public void onActivityResumed(Activity activity) {
+
+        }
+
+        @Override
+        public void onActivityPaused(Activity activity) {
+
+        }
+
+        @Override
+        public void onActivityStopped(Activity activity) {
+
+        }
+
+        @Override
+        public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+
+        }
+
+        @Override
+        public void onActivityDestroyed(Activity activity) {
+            AppManager.getInstance().removeActivity(activity);
+        }
+    };
 
     public static RefWatcher getRefWatcher(){
         return refWatcher;

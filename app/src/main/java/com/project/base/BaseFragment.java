@@ -3,10 +3,11 @@ package com.project.base;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+
+import com.trello.rxlifecycle2.components.support.RxFragment;
 
 /**
  * Created by 于德海 on 2018/3/26.
@@ -16,7 +17,7 @@ import android.view.ViewGroup;
  * @describe
  */
 
-public abstract class BaseFragment extends Fragment implements View.OnClickListener{
+public abstract class BaseFragment extends RxFragment implements View.OnClickListener{
     protected Context mContext;
 
     @Override
@@ -24,7 +25,12 @@ public abstract class BaseFragment extends Fragment implements View.OnClickListe
         super.onAttach(context);
         mContext= context;
     }
-
+    protected void showLoading(){
+        ((BaseActivity) getActivity()).showLoading();
+    }
+    protected void dissLoading(){
+        ((BaseActivity) getActivity()).dismissLoading();
+    }
     protected abstract int getLayoutId();
 
     protected abstract void initView(View view, Bundle savedInstanceState);

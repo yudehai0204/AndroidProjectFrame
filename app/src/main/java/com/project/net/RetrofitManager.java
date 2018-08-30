@@ -1,6 +1,7 @@
 package com.project.net;
 
-import com.orhanobut.logger.Logger;
+import android.util.Log;
+
 import com.project.Constants;
 import com.project.base.BaseApplication;
 
@@ -19,69 +20,81 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * package com.project.net
  * email : yudehai0204@163.com
  *
- * @describe  Refrofit封装类
- * 使用方式  RetrofitManager.getRetrofit().getApiService()
+ * @describe Refrofit封装类
+ * 使用方式  RetrofitManager.getApiService()
+ * or   RetrofitManager.getInstance().create(T.class)
  */
 
 public class RetrofitManager {
-    private static OkHttpClient client =null;
-    private static Retrofit retrofit=null;
+    private Retrofit mRetrofit;
+    /**
+     * RetrofitManager
+     *
+     * @return
+     */
+    public static RetrofitManager getInstance() {
+        return RetrofitManager.SingletonHolder.INSTANCE;
+    }
+
+    /**
+     * 获取对应的Service
+     *
+     * @param service Service 的 class
+     * @param <T>
+     * @return
+     */
+    public <T> T create(Class<T> service) {
+        return mRetrofit.create(service);
+    }
 
     /***
      *
-     * @return  网络请求类
+     * @return 网络请求类
      */
-    public static ApiService getApiService(){
-        return getRetrofit().create(ApiService.class);
+    public static ApiService getApiService() {
+        return getInstance().create(ApiService.class);
     }
 
-    private RetrofitManager(){
-
+    private static class SingletonHolder {
+        private static final RetrofitManager INSTANCE = new RetrofitManager();
     }
 
-    private static  Retrofit getRetrofit(){
-        if(retrofit==null){
-            synchronized (RetrofitManager.class)
-            {
-                if(retrofit==null){
-                    HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
-                        @Override
-                        public void log(String message) {
-                            Logger.d(message);
-                        }
-                    });
-                    if(Constants.APP_DEBUG)
-                        interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);//设置Log日志
-                    else
-                        interceptor.setLevel(HttpLoggingInterceptor.Level.NONE);//
-
-                    //缓存设置
-                    File cacheFile = new File(BaseApplication.applicationContext.getCacheDir(),"cache");
-                    Cache cache = new Cache(cacheFile,50*1024*1024);//50M
-
-                    //设置Client
-                    client = new OkHttpClient().newBuilder()
-                            .addInterceptor(interceptor)//设置日志拦截器
-                            .addInterceptor(new HttpInterceptor())//设置公共头，参数
-                            .cache(cache)
-                            .connectTimeout(60L, TimeUnit.SECONDS)
-                            .readTimeout(60L,TimeUnit.SECONDS)
-                            .writeTimeout(100L,TimeUnit.SECONDS)//上传时间100L
-                            .build();
-
-                    //获取retrofit实例
-                    retrofit = new Retrofit.Builder()
-                            .baseUrl(ApiService.BASE_URL)
-                            .client(client)
-                            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())//关联rxjava  Observable 代替call
-                            .addConverterFactory(GsonConverterFactory.create())//Data解析
-                            .build();
-
-                }
+    private RetrofitManager() {
+        HttpLoggingInterceptor interceptor = new HttpLoggingInterceptor(new HttpLoggingInterceptor.Logger() {
+            @Override
+            public void log(String message) {
+                Log.e("AndroidFrame",message);
             }
-        }
+        });
+        if (Constants.APP_DEBUG)
+            interceptor.setLevel(HttpLoggingInterceptor.Level.BODY);//设置Log日志
+        else
+            interceptor.setLevel(HttpLoggingInterceptor.Level.NONE);//
 
 
-        return retrofit;
+
+        //缓存设置
+        File cacheFile = new File(BaseApplication.applicationContext.getCacheDir(), "cache");
+        Cache cache = new Cache(cacheFile, 50 * 1024 * 1024);//50M
+
+        //设置Client
+        OkHttpClient client = new OkHttpClient().newBuilder()
+                .addInterceptor(interceptor)//设置日志拦截器
+                .addInterceptor(new HttpInterceptor())//设置公共头，参数
+                .cache(cache)
+                .connectTimeout(60L, TimeUnit.SECONDS)
+                .readTimeout(60L, TimeUnit.SECONDS)
+                .writeTimeout(100L, TimeUnit.SECONDS)//上传时间100L
+                .build();
+
+        //获取retrofit实例
+        mRetrofit = new Retrofit.Builder()
+                .baseUrl(ApiService.BASE_URL)
+                .client(client)
+                .addCallAdapterFactory(RxJava2CallAdapterFactory.create())//关联rxjava  Observable 代替call
+                .addConverterFactory(GsonConverterFactory.create())//Data解析
+                .build();
     }
+
+
 }

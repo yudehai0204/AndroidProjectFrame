@@ -1,5 +1,7 @@
 package com.project.net;
 
+import com.project.app.AppConfig;
+
 import java.io.IOException;
 
 import okhttp3.HttpUrl;
@@ -12,7 +14,7 @@ import okhttp3.Response;
  * package com.project.net
  * email : yudehai0204@163.com
  *
- * @describe
+ * @describe  设置公共请求头
  */
 
 public class HttpInterceptor implements Interceptor {
@@ -21,13 +23,12 @@ public class HttpInterceptor implements Interceptor {
         Request originalRequest = chain.request();
         //设置请求头
         Request request =originalRequest.newBuilder()
-                            .header("imei","")//覆盖相同key add不覆盖
+                            .header("imei", AppConfig.IMEI)
                             .method(originalRequest.method(),originalRequest.body())
                             .build();
         //设置公共参数
         HttpUrl httpUrl = request.url().newBuilder()
-                            .addQueryParameter("showapi_appid","59843")
-                            .addQueryParameter("showapi_sign","ff08d616eec54bedb62f4530b529da90")
+                            .addQueryParameter("imei",AppConfig.IMEI)
                             .build();
         request = request.newBuilder().url(httpUrl).build();
         return chain.proceed(request);

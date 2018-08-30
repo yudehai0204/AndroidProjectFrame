@@ -21,7 +21,9 @@ import retrofit2.http.QueryMap;
  */
 
 public interface ApiService {
-    String BASE_URL = "https://route.showapi.com/";
+    String BASE_URL = "http://api.douban.com/v2/";
+
+
 
     @GET("341-1")
     Observable<ShowApiModel.Bean> getShowApiData(@Query("page")int page, @Query("maxResult")int maxResult);
@@ -34,6 +36,9 @@ public interface ApiService {
     @FormUrlEncoded
     @POST("Model/fun")
     Observable<String> postApi(@QueryMap Map<String,String> map);//示例
+
+
+
 
 
 

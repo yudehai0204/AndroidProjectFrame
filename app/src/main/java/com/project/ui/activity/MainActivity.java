@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 
 import com.blankj.utilcode.util.LogUtils;
 import com.project.R;
+import com.project.app.AppConfig;
 import com.project.base.BaseActivity;
 import com.project.ui.fragment.ShowApiGifFragment;
 import com.project.ui.fragment.ShowApiTextFragment;
@@ -76,6 +77,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void subscribe(ObservableEmitter<String> emitter) throws Exception {
                 emitter.onNext("emitter");
+                Thread.sleep(3000);
                 emitter.onNext("emitter2");
                 emitter.onNext("emitter22");
                 emitter.onComplete();
@@ -85,6 +87,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onSubscribe(Disposable d) {
                 LogUtils.e("text","subscribe");
+
             }
 
             @Override
@@ -99,7 +102,8 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public void onComplete() {
-                LogUtils.eTag("text","Success");
+                LogUtils.eTag("AndroidFrame","Success");
+                AppConfig.IMEI="123456789";
             }
         };
         observable.observeOn(AndroidSchedulers.mainThread())
@@ -108,7 +112,8 @@ public class MainActivity extends BaseActivity {
     }
     @Override
     protected void initListener() {
-       showLoading();
+        showLoading();
+
     }
 
 
