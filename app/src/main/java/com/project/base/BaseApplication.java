@@ -5,12 +5,13 @@ import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
 
-import com.blankj.utilcode.util.Utils;
 import com.orhanobut.logger.AndroidLogAdapter;
 import com.orhanobut.logger.Logger;
 import com.orhanobut.logger.PrettyFormatStrategy;
 import com.project.R;
+import com.project.app.AppConstants;
 import com.project.app.AppManager;
+import com.project.utils.Utils;
 import com.scwang.smartrefresh.layout.SmartRefreshLayout;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshFooterCreator;
 import com.scwang.smartrefresh.layout.api.DefaultRefreshHeaderCreator;
@@ -110,11 +111,11 @@ public class BaseApplication extends Application implements Application.Activity
      * Log日志初始化
      */
     private void initLogger() {
-        PrettyFormatStrategy strategy = PrettyFormatStrategy.newBuilder().tag("MR.YU").build();
+        PrettyFormatStrategy strategy = PrettyFormatStrategy.newBuilder().tag(AppConstants.TAG_NAME).build();
         Logger.addLogAdapter(new AndroidLogAdapter(strategy){
             @Override
             public boolean isLoggable(int priority, String tag) {
-                return Constants.APP_DEBUG;
+                return AppConstants.APP_DEBUG;
             }
         });
     }

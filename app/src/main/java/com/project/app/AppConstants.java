@@ -8,6 +8,7 @@ package com.project.app;
 public final class AppConstants {
     public static final String CACHE_DIR_NAME="Project_Frame";
     public static final String SP_FILE_NAME ="project_sp";
+    public static final String TAG_NAME = "MR.YU";
     public static final boolean APP_DEBUG= true;//debug是否开启
 
 

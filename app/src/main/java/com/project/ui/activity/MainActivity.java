@@ -9,12 +9,12 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.blankj.utilcode.util.LogUtils;
 import com.project.R;
 import com.project.app.AppConfig;
 import com.project.base.BaseActivity;
 import com.project.ui.fragment.ShowApiGifFragment;
 import com.project.ui.fragment.ShowApiTextFragment;
+
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -86,13 +86,11 @@ public class MainActivity extends BaseActivity {
         Observer<String> reader = new Observer<String>() {
             @Override
             public void onSubscribe(Disposable d) {
-                LogUtils.e("text","subscribe");
 
             }
 
             @Override
             public void onNext(String s) {
-                LogUtils.eTag("text",s);
             }
 
             @Override
@@ -102,7 +100,6 @@ public class MainActivity extends BaseActivity {
 
             @Override
             public void onComplete() {
-                LogUtils.eTag("AndroidFrame","Success");
                 AppConfig.IMEI="123456789";
             }
         };

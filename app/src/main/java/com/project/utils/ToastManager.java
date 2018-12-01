@@ -24,7 +24,7 @@ public class ToastManager {
         Snackbar.make(parent,text,Snackbar.LENGTH_SHORT).show();
     }
 
-    public static void shotToast(String text){
+    public static void showToast(String text){
         if(toast_view==null){
             toast_view = (TextView) LayoutInflater.from(BaseApplication.applicationContext).inflate(R.layout.toast_view,null,false);
             sToast = new Toast(BaseApplication.applicationContext);
