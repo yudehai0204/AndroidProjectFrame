@@ -1,20 +1,26 @@
 github地址:[点击跳转到Github](https://github.com/yudehai0204/AndroidProjectFrame)
 
-#原因
+# 原因
  - 为了方便以后项目的使用
  - 项目中用的都还是比较古老的东西，mvc,volley等，搭建的过程中也学习一下新技术.
-#如何使用And图片
-
-	下载下来改个包名直接当新项目就可以啦
+# 组成
+ - 采用MVP模式 
+ - 集成butterknife(推荐跟Butterknife Zelezny 配合使用)
+ - BRAVH（[点我查看具体使用方式](https://github.com/CymChad/BaseRecyclerViewAdapterHelper)）
+ - RxJAVA+Retrofit2+Glide
+ - SmartRefreshLayout([点我查看使用](https://github.com/scwang90/SmartRefreshLayout)) 个人比较喜欢用SwipeRefresh
+ - Material Dialog([点我查看使用](https://github.com/afollestad/material-dialogs)) 推荐以model方式导入
+ - Gson 解析（推荐配合GsonFormat使用）
+ - 屏幕适配采用Smallest Width（最小宽度）
+# 使用
+下载下来改个包名直接当新项目就可以啦
 ![这里写图片描述](https://img-blog.csdn.net/2018032617110820?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2E5NDA2NTkzODc=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
 ![这里写图片描述](https://img-blog.csdn.net/20180326171315477?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2E5NDA2NTkzODc=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
 ![这里写图片描述](https://img-blog.csdn.net/20180326171337568?watermark/2/text/aHR0cHM6Ly9ibG9nLmNzZG4ubmV0L2E5NDA2NTkzODc=/font/5a6L5L2T/fontsize/400/fill/I0JBQkFCMA==/dissolve/70)
-本来不太需要上传图片 ，但不知道为什么就想传点。
-数据来源是showapi  官网地址：[ShowAPi](https://www.showapi.com/)
-#搭建过程 
-	先介绍下用到的各种第三方库的版本号吧
+时间太长了 现在可能已经没有图片跟这个笑话了  应该是申请的key过期了
+# 详细介绍 
 
-**都在一个.build文件中**
+## 主要依赖
 ```java
 ext{
 
@@ -55,98 +61,33 @@ ext{
     supportLibs = supportLib.values()
 }
 ```
-**调用上代码的方法的代码**
 
-```java
-apply plugin: 'com.android.application'
 
-android {
-    compileSdkVersion 27
-    defaultConfig {
-        applicationId "com.project"
-        minSdkVersion 17
-        targetSdkVersion 24
-        versionCode 1
-        versionName "1.0"
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-    }
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-    buildToolsVersion '26.0.2'
-}
-
-dependencies {
-    implementation fileTree(include: ['*.jar'], dir: 'libs')
-    //官方库
-    implementation rootProject.ext.supportLibs
-    //解析库
-    implementation 'com.google.code.gson:gson:2.6.2'
-    //RxJava
-    implementation rootProject.ext.rxJavaLibs
-    //Retrofit
-    implementation rootProject.ext.retrofitLibs
-    //Glide
-    implementation rootProject.ext.glideLibs
-    //SmartRefresh
-    implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-1'
-    //Leakcanary
-    debugCompile 'com.squareup.leakcanary:leakcanary-android:1.3'
-    releaseCompile 'com.squareup.leakcanary:leakcanary-android-no-op:1.3'
-    //Log日志打印
-    implementation 'com.orhanobut:logger:2.1.1'
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.1'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
-    implementation project(':utilcode')
-}
-
-```
-详细的东西可以在git上clone下来项目自己看看，
-
-**SmartRefreshLayout**
-很火的一个第三方下拉刷新上拉加载的第三方依赖库，
-地址：[SmartRefreshLayout](https://github.com/scwang90/SmartRefreshLayout)
-
-**然后就是核心类**
-
- - ApiService:  存放接口的类
- - RetrofitManager: 看名字就知道了 不多bb
-使用这个类方式也简单 ：
-
-```
-RetrofitManager.getApiService()
-                .getShowApiGifData(page,max_Results)
-                .compose(new IoToMainTransformer());
-```
-
- - MVP的三大基类（位于base包下）
+ ## MVP的三大基类（位于base包下）
 	  - IBasePresenter 
 	  - IBaseView
 	  - BasePresenter
- 使用方式在mvp包下。网上好多关于这方面文章  不太理解的自行google.
+ 使用方式在mvp包下。网上好多关于这方面文章  不太理解的自行google.（对于mvp 每个技术人的理解都不一样，只要能达到完美解耦就可以，不用过于追求同步）
+## Util类介绍
+ - DisplayUtils: 获取屏幕尺寸 dp2sp 等；
+ - EncodeUtils: 编码类。utf-8的转码解码等
+ - GlideUtils: 把图片加载封装起来。
+ - MaterialDesignDialogUtils: 把几个比较通用的弹窗封装起来；
+ - SPUtils: 顾名思义  sp存储类；
+ - StatusBarUtil:状态栏的设置类;
+ - ToastManager: 封装了toast跟snackBar;
+ - 其他后续添加。
 
-最后说下工具类，这个项目搭建的这么快主要就是工具类这个东东，很是发愁，本着死马活马医的本性在github上找到了一个依赖库,贼鸡儿全面的一个util工具类的库基本你能想到的都有，当我找到这个工具库的时候，ne脑海浮现的画面是一个抖音小哥的短视频，大家可以看看  ：[点我点我](https://www.douyin.com/share/video/6534232411012599047/?region=CN&mid=6534232444711275272&titleType=title&utm_source=copy_link&utm_campaign=client_share&utm_medium=android&share_app_name=aweme&share_iid=29028101748&timestamp=1522059810)
-github地址：[AndroidUtil类](https://github.com/Blankj/AndroidUtilCode)
-但是推荐大家下载下来代码放到项目里用，有什么自己的奇葩相关需求可以直接在代码里加，
-比如什么Sp存登录信息，然后一键清空功能之类的。
 
 
-#尾语
+
+# 尾语
 	
-该介绍的都介绍完毕了。项目现在只是初步搭建完毕，以后如果什么技术比较新，比较好的话我还是会替换现在的东西的，大家喜欢的话就star下我的项目噢，接下来的计划就是：
+时代再进步，现在的时代已经不是一个人单干的时代了，要紧跟时代的步伐，能站在巨人的肩膀上就站在巨人的肩膀上，所以很多这个很多都是将各种最实用的第三方库搭建到一起，对于变动比较大的，推荐以model方式集成到项目中，如：material-dialogs 或者相册选择之类的。
 
- - 写一个Progress的工具类，比较好多网络清请求都是点击按钮进行的。
- - 封装一个Glide加载图片的进度条
- - 选一个比较好的第三方RecyclerViewAdapter的工具库
- - 等等等等
+项目会继续更新的 伴随google的io大会新技术同步更新。
 
-当然大家也可以fork一起维护，或者给一些什么建议，为的就是能过实现快速上手写项目吗。人多力量大，毕竟博主的脑容量就这个，ne 也不是 爱因斯坦，思考的还是不够全面滴。
-
-最后再发一遍项目地址：[点ne(三声)点ne（三声）](https://github.com/yudehai0204/AndroidProjectFrame)
+最后再发一遍项目地址：[点我直达](https://github.com/yudehai0204/AndroidProjectFrame)
 
 
   
@@ -155,4 +96,3 @@ github地址：[AndroidUtil类](https://github.com/Blankj/AndroidUtilCode)
 
 
 		
-
