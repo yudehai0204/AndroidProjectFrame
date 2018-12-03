@@ -4,9 +4,11 @@ import android.content.Context;
 import android.text.TextUtils;
 import android.widget.ImageView;
 
+import com.bumptech.glide.load.engine.DiskCacheStrategy;
 import com.bumptech.glide.load.resource.bitmap.CircleCrop;
 import com.bumptech.glide.load.resource.bitmap.RoundedCorners;
-import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
+import com.project.R;
+
 
 /**
  * @author xuhao
@@ -14,46 +16,57 @@ import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions;
  * @desc 图片加载工具类
  */
 public class GlideUtils {
-  
+
+
+
+
+
   /**
      * 加载图片
      *
      * @param context  context
      * @param iv       imageView
      * @param url      图片地址
-     * @param emptyImg 默认展位图
+     *
      */
-    public static void loadImage(Context context, ImageView iv, String url, int emptyImg) {
+    public static void loadImage(Context context, ImageView iv, String url) {
         if (!TextUtils.isEmpty(url)) {
             GlideApp.with(context)
                     .load(url)
-                    .error(emptyImg)
-                    .placeholder(iv.getDrawable())
-                    .transition(new DrawableTransitionOptions().crossFade())
+                    .error(R.drawable.default_bg)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .into(iv);
         } else {
-            loadImage(context, iv, emptyImg, emptyImg);
+            loadImage(context, iv, R.drawable.default_bg, R.drawable.default_bg);
         }
     }
-
+    public static void loadImage(Context context, ImageView iv, String url,int default_res) {
+        if (!TextUtils.isEmpty(url)) {
+            GlideApp.with(context)
+                    .load(url)
+                    .error(default_res)
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
+                    .into(iv);
+        } else {
+            loadImage(context, iv,default_res, default_res);
+        }
+    }
     /**
      * 加载圆角图片
      *
      * @param context  context
      * @param iv       imageView
      * @param url      图片地址
-     * @param emptyImg 默认展位图
+     *
      */
-    public static void loadRoundImage(Context context, ImageView iv, String url, int emptyImg) {
+    public static void loadRoundImage(Context context, ImageView iv, String url) {
         if (!TextUtils.isEmpty(url)) {
             GlideApp.with(context)
                     .load(url)
-                    .error(emptyImg)
-                    .placeholder(iv.getDrawable())
-                    .transition(new DrawableTransitionOptions().crossFade())
+                    .diskCacheStrategy(DiskCacheStrategy.ALL)
                     .transform(new RoundedCorners(20)).into(iv);
         } else {
-            loadRoundImage(context, iv, emptyImg, emptyImg);
+            loadRoundImage(context, iv, R.drawable.default_bg, R.drawable.default_bg);
         }
     }
 
@@ -71,7 +84,6 @@ public class GlideUtils {
                     .load(url)
                     .error(emptyImg)
                     .placeholder(iv.getDrawable())
-                    .transition(new DrawableTransitionOptions().crossFade())
                     .transform(new CircleCrop()).into(iv);
         } else {
             loadCircleImage(context, iv, emptyImg, emptyImg);

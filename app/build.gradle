@@ -40,6 +40,9 @@ dependencies {
     }
     //SmartRefresh
     implementation 'com.scwang.smartrefresh:SmartRefreshLayout:1.1.0-alpha-14'
+
+    //BaseRecyclerView
+    implementation 'com.github.CymChad:BaseRecyclerViewAdapterHelper:2.9.42'
     //Leakcanary
     debugImplementation 'com.squareup.leakcanary:leakcanary-android:1.3'
     releaseImplementation 'com.squareup.leakcanary:leakcanary-android-no-op:1.3'

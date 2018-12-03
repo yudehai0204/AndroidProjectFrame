@@ -9,6 +9,9 @@ import android.view.ViewGroup;
 
 import com.trello.rxlifecycle2.components.support.RxFragment;
 
+import butterknife.ButterKnife;
+import butterknife.Unbinder;
+
 /**
  * Created by 于德海 on 2018/3/26.
  * package com.project.base
@@ -19,7 +22,7 @@ import com.trello.rxlifecycle2.components.support.RxFragment;
 
 public abstract class BaseFragment extends RxFragment implements View.OnClickListener{
     protected Context mContext;
-
+    protected Unbinder unbinder;
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -41,9 +44,16 @@ public abstract class BaseFragment extends RxFragment implements View.OnClickLis
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         View view = LayoutInflater.from(getActivity()).inflate(getLayoutId(),container,false);
+        unbinder = ButterKnife.bind(this,view);
         initView(view,savedInstanceState);
         initData();
         initListener();
         return view;
+    }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        unbinder.unbind();
     }
 }
